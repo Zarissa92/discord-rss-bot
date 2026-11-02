@@ -57,9 +57,6 @@ TWITCH_CHANNELS = {
     "nomdelachaine": 123456789012345678,
 }
 ```
-
-⚠️ Pas la peine de remettre les anciens flux Twitch via openrss dans `FEEDS`, sinon ça fait des doublons.
-
 ## Réglages
 
 En haut du script :
