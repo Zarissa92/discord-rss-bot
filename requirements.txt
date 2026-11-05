@@ -4,3 +4,5 @@ python-dotenv==1.0.0
 audioop-lts
 yt_dlp
 legacy-cgi
+pathlib
+dotenvs

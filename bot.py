@@ -10,6 +10,7 @@ import feedparser
 import yt_dlp
 from discord.ext import tasks
 from dotenv import load_dotenv
+from pathlib import Path
 
 load_dotenv()
 
@@ -17,25 +18,55 @@ TOKEN = os.getenv("DISCORD_TOKEN")
 DB_PATH = os.getenv("DB_PATH", "articles.db")
 
 # Flux RSS -> ID du salon Discord où publier
-FEEDS = {
-    "https://www.infolibertaire.net/feed": 1565775693109919794,  # Salon du premier flux
-    "https://portail.basta.media/spip.php?page=backend": 1565784501970407616,
-    "https://paris-luttes.info/spip.php?page=backend": 1565794982797774848,
-    "https://www.problematik-media.com/feed.xml": 1565829882691199107,
-    "https://api.blast-info.fr/rss.xml": 1566144707334246420,
-    "https://streetpress.com/rss.xml": 1566193832733839390,
-    "https://www.mediapart.fr/journal/podcasts/rss": 1566384937442086993,  # mediapart
-    "https://www.youtube.com/feeds/videos.xml?channel_id=UCdnaDhU-LDQrIEEmSIfq0-Q": 1566384937442086993,  # mediapart
-    "https://www.youtube.com/feeds/videos.xml?channel_id=UCGvjUWz3mGV9cssraATuEsw": 1566387582579908608,  # radionova
+# Fichier placé à côté du script
+RSS_FEEDS_FILE = Path(__file__).with_name("RSS_feeds.txt")
 
-}
+RSS_LINE_RE = re.compile(r'^\s*"([^"]+)"\s*:\s*(\d+)\s*(?:#.*)?$')
+
+def load_feeds(path):
+    feeds = {}
+    with open(path, encoding="utf-8") as f:
+        for num, line in enumerate(f, 1):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue  # ignore lignes vides et commentaires
+            m = RSS_LINE_RE.match(line)
+            if not m:
+                print(f"[feeds] ligne {num} ignorée (format invalide) : {line}")
+                continue
+            url, channel_id = m.group(1), int(m.group(2))
+            feeds[url] = channel_id
+    return feeds
+
+FEEDS = load_feeds(RSS_FEEDS_FILE)
 
 # Chaînes Twitch (nom dans l'URL twitch.tv/<nom>) -> ID du salon Discord où publier
 # Récupération via yt-dlp : pas de compte ni d'API Twitch.
-TWITCH_CHANNELS = {
-    "ostpolitik": 1566875561941401630,  
-    "laurenemarx": 1566875561941401630,
-}
+
+
+TWITCH_FEEDS_FILE = Path(__file__).with_name("Twich_feeds.txt")
+
+TWITCH_LINE_RE = re.compile(r'^\s*"([^"]+)"\s*:\s*(\d+)\s*(?:#.*)?$')
+
+def load_feeds_t(path):
+    feeds_t = {}
+    with open(path, encoding="utf-8") as f:
+        for num, line in enumerate(f, 1):
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue  # ignore lignes vides et commentaires
+            m = TWITCH_LINE_RE.match(line)
+            if not m:
+                print(f"[feeds_t] ligne {num} ignorée (format invalide) : {line}")
+                continue
+            url, channel_id = m.group(1), int(m.group(2))
+            feeds[url] = channel_id
+    return feeds_t
+
+TWITCH_CHANNELS = load_feeds(TWITCH_FEEDS_FILE)
+
+
+####}
 
 MAX_POSTS_PER_RUN = 30
 FIRST_RUN_POSTS = 30
