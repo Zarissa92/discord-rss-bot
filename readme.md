@@ -17,8 +17,10 @@ Toutes les 10 minutes, le bot regarde les flux. S'il y a du nouveau, il le poste
 Il faut Python 3.10 ou plus.
 
 ```bash
-pip install discord.py feedparser yt-dlp python-dotenv
+pip install -r requirements.txt
 ```
+
+Le fichier `requirements.txt` liste les dépendances (discord.py, feedparser, python-dotenv, yt-dlp, et deux modules nécessaires aux versions récentes de Python : `audioop-lts` et `legacy-cgi`).
 
 Ensuite, créer les fichiers de configuration (voir les sections ci-dessous).
 
