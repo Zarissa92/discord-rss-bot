@@ -1,4 +1,6 @@
-discord.py
-feedparser
-yt-dlp
-python-dotenv
+discord.py==2.3.2
+feedparser==6.0.10
+python-dotenv==1.0.0
+audioop-lts
+yt_dlp
+legacy-cgi

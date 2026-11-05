@@ -36,6 +36,7 @@ FEEDS = {
 # Récupération via yt-dlp : pas de compte ni d'API Twitch.
 TWITCH_CHANNELS = {
     "ostpolitik": 1566875561941401630,  # ostpolitik
+    "laurenemarx": 1566875561941401630,
     # "autrechaine": 123456789012345678,
 }
 
