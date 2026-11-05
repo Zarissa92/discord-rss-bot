@@ -27,17 +27,14 @@ FEEDS = {
     "https://www.mediapart.fr/journal/podcasts/rss": 1566384937442086993,  # mediapart
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCdnaDhU-LDQrIEEmSIfq0-Q": 1566384937442086993,  # mediapart
     "https://www.youtube.com/feeds/videos.xml?channel_id=UCGvjUWz3mGV9cssraATuEsw": 1566387582579908608,  # radionova
-    # Twitch : remplacé par TWITCH_CHANNELS ci-dessous (ne pas réactiver, sinon doublons)
-    # "https://openrss.org/www.twitch.tv/ostpolitik/videos?filter=all&sort=time": 1566875561941401630, #ostropolitik
-    # "https://exemple.com/feed.xml": ???,
+
 }
 
 # Chaînes Twitch (nom dans l'URL twitch.tv/<nom>) -> ID du salon Discord où publier
 # Récupération via yt-dlp : pas de compte ni d'API Twitch.
 TWITCH_CHANNELS = {
-    "ostpolitik": 1566875561941401630,  # ostpolitik
+    "ostpolitik": 1566875561941401630,  
     "laurenemarx": 1566875561941401630,
-    # "autrechaine": 123456789012345678,
 }
 
 MAX_POSTS_PER_RUN = 30
