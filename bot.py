@@ -60,10 +60,10 @@ def load_feeds_t(path):
                 print(f"[feeds_t] ligne {num} ignorée (format invalide) : {line}")
                 continue
             url, channel_id = m.group(1), int(m.group(2))
-            feeds[url] = channel_id
+            feeds_t[url] = channel_id
     return feeds_t
 
-TWITCH_CHANNELS = load_feeds(TWITCH_FEEDS_FILE)
+TWITCH_CHANNELS = load_feeds_t(TWITCH_FEEDS_FILE)
 
 
 ####}
